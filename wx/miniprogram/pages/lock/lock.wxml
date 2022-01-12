@@ -1,0 +1,23 @@
+<!--pages/lock/lock.wxml-->
+<view class="container">
+    <view class="static">
+        <image class="sedan" src="/resources/sedan.png" />
+        <view class="margin-top">
+            <view>无论是社会 家庭 还是个人</view>
+            <view>安全永远是第一责任</view>
+        </view>
+    </view>
+    <view class="avatar-container">
+        <button wx:if="{{!avatarURL}}" class="cu-avatar round lg bg-grey margin-xs"
+                bindtap="getUserProfile">
+            <text class="cuIcon-people"></text>
+        </button>
+        <view wx:if="{{avatarURL}}" class="switch-container">
+            <image class="cu-avatar round lg bg-grey margin-xs"
+                   src="{{avatarURL}}"/>
+            <switch bindchange="onShareLocation" checked="{{share_location}}" />
+        </view>
+        <view class="margin-top">实时展示我的头像</view>
+    </view>
+    <button style="width:80%" class="bg-grey lg" bindtap="onUnlockTap">开始任务</button>
+</view>

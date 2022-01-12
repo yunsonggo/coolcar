@@ -1,0 +1,10 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: gun.v1.GunService.CreateGun
+      post: /v1/gun
+      body: "*"
+    - selector: gun.v1.GunService.GetGun
+      get: /v1/gun/{id}

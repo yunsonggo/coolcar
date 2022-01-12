@@ -1,0 +1,90 @@
+syntax = "proto3";
+package gun.v1;
+option go_package="coolcar/gun/api/gen/v1;gunpb";
+
+message GunEntity {
+  string id = 1;
+  Gun gun = 2;
+}
+
+enum GunStatus {
+  GS_NO_SPECIFIED = 0;
+  LOCKED = 1;
+  UNLOCKING = 2;
+  UNLOCKED = 3;
+  LOCKING = 4;
+}
+
+message Location {
+  double latitude = 1;
+  double longitude = 2;
+}
+
+message Driver {
+  string id = 1;
+  string avatar_url = 2;
+}
+
+
+
+message Gun {
+  GunStatus status = 1;
+  Driver driver = 2;
+  Location position = 3;
+  string trip_id = 4;
+  string type = 5;
+  string class = 6;
+  string cardid = 7;
+}
+
+message CreateGunRequest {
+  string type = 1;
+  string class = 2;
+  string card_id = 3;
+  Location position = 4;
+}
+
+message GetGunRequest {
+  string id = 1;
+}
+
+message GetGunListRequest {
+  GunStatus status = 1;
+}
+message GetGunListResponse {
+  repeated GunEntity GunList = 1;
+}
+
+message LockGunRequest {
+  string id = 1;
+}
+message LockGunResponse {
+
+}
+
+message UnlockGunRequest {
+  string id = 1;
+  Driver driver = 2;
+  string trip_id = 3;
+}
+message UnlockGunResponse {
+
+}
+
+message UpdateGunRequest {
+  string id = 1;
+  GunStatus status = 2;
+  Location position = 3;
+}
+message UpdateGunResponse {
+
+}
+
+service GunService {
+  rpc CreateGun (CreateGunRequest) returns (GunEntity);
+  rpc GetGun (GetGunRequest) returns (Gun);
+  rpc GetGunList (GetGunListRequest) returns (GetGunListResponse);
+  rpc LockGun (LockGunRequest)returns (LockGunResponse);
+  rpc UnlockGun (UnlockGunRequest)returns (UnlockGunResponse);
+  rpc UpdateGun (UpdateGunRequest) returns (UpdateGunResponse);
+}

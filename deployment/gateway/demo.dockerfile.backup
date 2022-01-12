@@ -1,0 +1,26 @@
+# 启动编译环境
+#FROM golang:1.17.5
+FROM golang:1.17-alpine AS builder
+# 配置编译环境
+RUN go env -w GO111MODULE=on
+RUN go env -w GOPROXY=https://goproxy.cn,direct
+# 拷贝源代码到镜像
+COPY . /go/src/coolcar/server
+# 编译
+WORKDIR /go/src/coolcar/server
+#RUN CGO_ENABLED=0 GOOS=linux go install ./gateway/...
+RUN CGO_ENABLED=0 GOOS=linux go install ./gateway/...
+
+FROM alpine:3.15
+
+COPY --from=builder /go/bin/gateway /bin/gateway
+# 对外开放端口
+EXPOSE 8080
+# 设置服务入口
+# ENTRYPOINT [ "/go/bin/gateway" ]
+ENTRYPOINT ["/bin/gateway"]
+#项目目录要有go.mod文件 docker build -t 镜像名字 -f dockerfile地址 PAHT当前目录
+# docker build -t coolcar/gartway -f ../deployment/gateway/Dockerfile .
+
+#构建完成镜像以后 运行镜像
+# docker run -p 8080:8080 镜像名或ID

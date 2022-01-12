@@ -1,0 +1,32 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: rental.v1.TripService.CreateTrip
+      post: /v1/rental/create
+      body: "*"
+    - selector: rental.v1.TripService.GetTrip
+      get: /v1/rental/{id}
+    - selector: rental.v1.TripService.GetTripList
+      get: /v1/rental/list
+    - selector: rental.v1.TripService.UpdateTrip
+      put: /v1/rental/{id}
+      body: "*"
+    - selector: rental.v1.ProfileService.GetProfile
+      get: /v1/profile
+    - selector: rental.v1.ProfileService.SubmitProfile
+      post: /v1/profile
+      body: "*"
+    - selector: rental.v1.ProfileService.ClearProfile
+      delete: /v1/profile
+    - selector: rental.v1.ProfileService.GetProfilePhoto
+      get: /v1/profile/photo
+    - selector: rental.v1.ProfileService.CreateProfilePhoto
+      post: /v1/profile/photo
+      body: "*"
+    - selector: rental.v1.ProfileService.CompleteProfilePhoto
+      post: /v1/profile/photo/complete
+      body: "*"
+    - selector: rental.v1.ProfileService.ClearProfilePhoto
+      delete: /v1/profile/photo

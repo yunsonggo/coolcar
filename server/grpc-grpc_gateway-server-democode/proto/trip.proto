@@ -1,0 +1,55 @@
+syntax = "proto3";
+package  coolcar;
+option go_package="coolcar/proto/gen/go;trippb";
+
+// cd proto
+// -I=. 输出目录为当前目录  --go_out=paths=source_relative 以相对路径输出go文件 到 gen/go下 源文件名trip.proto
+// protoc -I=. --go_out=paths=source_relative:gen/go trip.proto
+// grpc服务
+// protoc -I=. --go_out=plugins=grpc,paths=source_relative:gen/go trip.proto
+// grpc-grpc-gateway 服务
+// protoc -I=. --grpc-gateway_out=paths=source_relative,grpc_api_configuration=trip.yaml:gen/go trip.proto
+message Gun {
+    string id = 1;
+    string gun_num = 2;
+    string gun_style = 3;
+    string gun_class = 4;
+}
+
+message Location {
+    double latitude = 1;
+    double longitude = 2;
+}
+
+enum TripStatus {
+    NOT_STATUS = 0;
+    ON_READY = 1;
+    IN_PROGRESS = 2;
+    ON_FINISHED = 3;
+}
+
+message  Trip {
+    string start = 1;
+    string end = 2;
+    int32 duration_sec = 3;
+    int32 distance_km = 4;
+    Location start_pos = 5;
+    Location end_pos = 6;
+    repeated Location path_locations = 7;
+    Gun gun_info = 8;
+    TripStatus status = 9;
+}
+
+message GetTripRequest {
+    string id = 1;
+}
+
+message GetTripResponse {
+    string id = 1;
+    Trip trip = 2;
+}
+
+service TripService {
+    rpc GetTrip (GetTripRequest) returns (GetTripResponse);
+}
+

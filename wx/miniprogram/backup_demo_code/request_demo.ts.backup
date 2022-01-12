@@ -1,0 +1,19 @@
+// import camelcaseKeys from "camelcase-keys";
+// import { coolcar } from "../service/proto_gen/trip_pb";
+// function onLaunchDemo() {
+//     // 测试连接grpc-gateway服务 发送请求
+//     console.log('request grpc-gateway: 8080');
+//     wx.request({
+//       url:'http://localhost:8080/trip/trip111',
+//       method:'GET',
+//       success: res => {
+//         const getTripRes = coolcar.GetTripResponse.fromObject(
+//           camelcaseKeys(res.data as object,{deep:true})
+//           )
+//         console.log(getTripRes);
+//         console.log(coolcar.TripStatus[getTripRes.trip?.status!]);
+        
+//       },
+//       fail:console.error,
+//     })
+// }

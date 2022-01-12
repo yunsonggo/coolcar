@@ -1,0 +1,12 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: blob.v1.BlobService.CreateBlob
+      post: /v1/blob/create
+      body: "*"
+    - selector: blob.v1.BlobService.GetBlob
+      get: /v1/blob/{id}
+    - selector: blob.v1.ProfileService.GetBlobURL
+      get: /v1/blob/url/{id}
